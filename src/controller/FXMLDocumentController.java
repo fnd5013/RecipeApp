@@ -378,7 +378,7 @@ public class FXMLDocumentController implements Initializable {
         Usermodel selectedUser = UserTable.getSelectionModel().getSelectedItem();
         
         // fxml loader
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DetailModelView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DetailedModelView.fxml"));
 
         // load the ui elements
         Parent detailedModelView = loader.load();
@@ -408,13 +408,13 @@ public class FXMLDocumentController implements Initializable {
 
         
         // fxml loader
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DetailModelView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DetailedModelView.fxml"));
 
         // load the ui elements
-        Parent detailedModelView= loader.load();
+        Parent DetailedModelView= loader.load();
 
         // load the scene
-        Scene tableViewScene = new Scene(detailedModelView);
+        Scene tableViewScene = new Scene(DetailedModelView);
 
         //access the detailedControlled and call a method
          DetailModelController detailedControlled = loader.getController();
