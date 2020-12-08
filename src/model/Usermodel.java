@@ -23,52 +23,72 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "USERMODEL")
 @XmlRootElement
 @NamedQueries({
+    
     @NamedQuery(name = "Usermodel.findAll", query = "SELECT u FROM Usermodel u")
+    , @NamedQuery(name = "Usermodel.findById", query = "SELECT u FROM Usermodel u WHERE u.id = :id")
+    , @NamedQuery(name = "Usermodel.findByUserName", query = "SELECT u FROM Usermodel u WHERE u.username = :username")
     , @NamedQuery(name = "Usermodel.findByFollowers", query = "SELECT u FROM Usermodel u WHERE u.followers = :followers")
-    , @NamedQuery(name = "Usermodel.findByName", query = "SELECT u FROM Usermodel u WHERE u.name = :name")
     , @NamedQuery(name = "Usermodel.findByActivity", query = "SELECT u FROM Usermodel u WHERE u.activity = :activity")
-    , @NamedQuery(name = "Usermodel.findByNameAndActivity", query = "SELECT u FROM Usermodel u WHERE u.name = :name and u.activity = :activity")
-    , @NamedQuery(name = "Usermodel.findByNameAdvanced", query = "SELECT u FROM Usermodel u WHERE  LOWER(u.name) LIKE  CONCAT('%', LOWER(:name), '%')")
-  //  , @NamedQuery(name = "Usermodel.findByCgpaInBetween", query = "SELECT u FROM Usermodel u WHERE  u.cgpa >= :cgpa_low AND u.cgpa <= :cgpa_high ")
+    , @NamedQuery(name = "Usermodel.findByUserNameAndActivity", query = "SELECT u FROM Usermodel u WHERE u.username = :username and u.activity = :activity")
+    , @NamedQuery(name = "Usermodel.findByUserNameAdvanced", query = "SELECT u FROM Usermodel u WHERE  LOWER(u.username) LIKE  CONCAT('%', LOWER(:username), '%')")
 
 
-        
-    })
 
+})
 
 public class Usermodel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "USERNAME")
+    private String username;
+    @Basic(optional = false)
     @Column(name = "FOLLOWERS")
-    private Integer followers;
-    @Column(name = "NAME")
-    private String name;
+    private int followers;
+    @Basic(optional = false)
     @Column(name = "ACTIVITY")
     private Boolean activity;
 
     public Usermodel() {
     }
 
-    public Usermodel(Integer followers) {
-        this.followers = followers;
+    public Usermodel(Integer id) {
+        this.id = id;
     }
 
-    public Integer getFollowers() {
+    public Usermodel(Integer id, String username, int followers, Boolean activity) {
+        this.id = id;
+        this.username = username;
+        this.followers = followers;
+        this.activity = activity;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public int getFollowers() {
         return followers;
     }
 
-    public void setFollowers(Integer followers) {
+    public void setFollowers(int followers) {
         this.followers = followers;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Boolean getActivity() {
@@ -82,8 +102,12 @@ public class Usermodel implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (followers != null ? followers.hashCode() : 0);
+        int h =0;
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
+        
+        
+        
     }
 
     @Override
@@ -93,7 +117,7 @@ public class Usermodel implements Serializable {
             return false;
         }
         Usermodel other = (Usermodel) object;
-        if ((this.followers == null && other.followers != null) || (this.followers != null && !this.followers.equals(other.followers))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -101,11 +125,8 @@ public class Usermodel implements Serializable {
 
     @Override
     public String toString() {
-        return " model.Usermodel[ followers=" + followers + " ]";
-    }
-
-    public void setActivity(String active) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "model.Usermodel[ id=" + id + " ]";
+        
     }
     
 }
